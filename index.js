@@ -6,6 +6,8 @@ var path = require('path')
 var static = require('serve-static');
 app.use(static(path.join(__dirname,'public')));
 
+const config = require('./config/key')
+
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
@@ -15,7 +17,7 @@ const mongoose = require('mongoose');
 const { User } = require("./model/User");
 
 mongoose.connect
-('mongodb+srv://psh:1234@boilerplate.idmdn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{
+(config.mongoURI,{
     useNewUrlParser:true,useUnifiedTopology:true,useCreateIndex:true,useFindAndModify:false
 }).then(()=>console.log('MongoDB Connected~')).catch(err =>console.log(err))
 
